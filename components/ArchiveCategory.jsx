@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import Link from 'next/link'
 import {extract} from '../helpers/helper'
 
 export const ArchiveCategory = ({filtro, urlImg}) => {
@@ -22,9 +22,9 @@ export const ArchiveCategory = ({filtro, urlImg}) => {
             {extract(filtro[0].content)}
             </p>
             <div className="flex justify-center">
-              <button className="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+              <Link href={'/posts/[id]'} as={`/posts/${filtro[0].id}`} ><a className="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
                 Leer post...
-              </button>
+              </a></Link>
             </div>
           </div>
         </div>
@@ -53,21 +53,23 @@ export const ArchiveCategory = ({filtro, urlImg}) => {
                     {extract(post.content)}
                   </p>
                   <div className="flex items-center flex-wrap ">
+                    <Link href={'/posts/[id]'} as={`/posts/${post.id}`} >
                     <a className="text-indigo-400 inline-flex items-center md:mb-2 lg:mb-0">
-                      Leer post...
-                      <svg
-                        className="w-4 h-4 ml-2"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        strokeWidth={2}
-                        fill="none"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path d="M5 12h14" />
-                        <path d="M12 5l7 7-7 7" />
-                      </svg>
-                    </a>
+                        Leer post...
+                        <svg
+                          className="w-4 h-4 ml-2"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          strokeWidth={2}
+                          fill="none"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="M5 12h14" />
+                          <path d="M12 5l7 7-7 7" />
+                        </svg>
+                      </a>
+                      </Link>
                     <span className="text-gray-500 mr-3 inline-flex items-center lg:ml-auto md:ml-0 ml-auto leading-none text-sm pr-3 py-1 border-r-2 border-gray-800">
                       <svg
                         className="w-4 h-4 mr-1"

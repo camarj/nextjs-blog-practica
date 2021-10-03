@@ -1,4 +1,5 @@
 import { extract } from '../helpers/helper'
+import Link from 'next/link'
 
 export default function Home( {posts}) {
   const urlImg = "http://localhost:1337"
@@ -21,9 +22,9 @@ export default function Home( {posts}) {
             {extract(posts[0].content)}
             </p>
             <div className="flex justify-center">
-              <button className="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+              <Link href={'/posts/[id]'} as={`/posts/${posts[0].id}`} ><a className="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
                 Leer post...
-              </button>
+              </a></Link>
             </div>
           </div>
         </div>
@@ -52,7 +53,8 @@ export default function Home( {posts}) {
                     {extract(post.content)}
                   </p>
                   <div className="flex items-center flex-wrap ">
-                    <a className="text-indigo-400 inline-flex items-center md:mb-2 lg:mb-0">
+                  <Link href={'/posts/[id]'} as={`/posts/${post.id}`} >
+                   <a className="text-indigo-400 inline-flex items-center md:mb-2 lg:mb-0">
                       Leer post...
                       <svg
                         className="w-4 h-4 ml-2"
@@ -67,6 +69,7 @@ export default function Home( {posts}) {
                         <path d="M12 5l7 7-7 7" />
                       </svg>
                     </a>
+                    </Link>
                     <span className="text-gray-500 mr-3 inline-flex items-center lg:ml-auto md:ml-0 ml-auto leading-none text-sm pr-3 py-1 border-r-2 border-gray-800">
                       <svg
                         className="w-4 h-4 mr-1"
@@ -114,7 +117,7 @@ export default function Home( {posts}) {
 
 // You should use getServerSideProps when:
 // - Only if you need to pre-render a page whose data must be fetched at request time
-export const getServerSideProps = async () => {
+export const getStaticProps = async () => {
   const res = await  fetch("http://localhost:1337/posts");
   const posts = await res.json();
 
