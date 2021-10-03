@@ -1,8 +1,9 @@
-import { extract } from '../helpers/helper'
+import React, { useEffect, useState } from 'react'
+import {extract} from '../helpers/helper'
 
-export default function Home( {posts}) {
-  const urlImg = "http://localhost:1337"
-  return (
+export const ArchiveCategory = ({filtro, urlImg}) => {
+
+    return (
     <>
       <section className="text-gray-400 bg-gray-900 body-font">
         <div className="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
@@ -10,15 +11,15 @@ export default function Home( {posts}) {
             <img
               className="object-cover object-center rounded"
               alt="hero"
-              src= {urlImg + posts[0].image.formats.medium.url }
+              src= {urlImg + filtro[0].image.formats.medium.url }
             />
           </div>
           <div className="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
             <h1 className="title-font sm:text-4xl text-3xl mb-4 font-medium text-white">
-              {posts[0].title}
+              {filtro[0].title}
             </h1>
             <p className="mb-8 leading-relaxed">
-            {extract(posts[0].content)}
+            {extract(filtro[0].content)}
             </p>
             <div className="flex justify-center">
               <button className="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
@@ -32,7 +33,7 @@ export default function Home( {posts}) {
         <div className="container px-5 py-24 mx-auto">
           <div className="flex flex-wrap -m-4">
 
-          {posts.map(post => 
+          {filtro.map(post => 
 
             <div className="p-4 md:w-1/3" key={post.id}>
               <div className="h-full border-2 border-gray-800 rounded-lg overflow-hidden">
@@ -100,29 +101,10 @@ export default function Home( {posts}) {
                 </div>
               </div>
             </div>
-
           )}
-
-
           </div>
         </div>
-      </section>
-  
+      </section> 
     </>
-  )
-}
-
-// You should use getServerSideProps when:
-// - Only if you need to pre-render a page whose data must be fetched at request time
-export const getServerSideProps = async () => {
-  const res = await  fetch("http://localhost:1337/posts");
-  const posts = await res.json();
-
-  return {
-    props: {
-
-      posts
-      
-    }
-  }
+    )
 }
